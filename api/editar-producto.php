@@ -21,13 +21,13 @@ SET
 	stock = :stock,
 	activo = :activo,
 	stock = :stock,
-	fecha_alta = :fecha_alta,
+	fecha_alta = NOW(),
 	fecha_baja = :fecha_baja,
 	CATEGORIAS_id_categoria = :CATEGORIAS_id_categoria,
 	UNIDADES_DE_MEDIDA_id_unidad_medida = :UNIDADES_DE_MEDIDA_id_unidad_medida,
 	HUERTAS_id_huerta = :HUERTAS_id_huerta
 WHERE
-	id_producto = ':id_producto";
+	id_producto = :id_producto";
 
 $stmt = $db->prepare($query);
 
@@ -39,13 +39,15 @@ $exito = $stmt->execute([
 	'foto' => 'tomate.jpg',
 	'stock' => $postData['stock'],
 	'activo' => $postData['activo'],
-	'fecha_alta' => 'NOW()',
+	//'fecha_alta' => 'NOW()',
 	'fecha_baja' => 'DEFAULT',
 	'CATEGORIAS_id_categoria' => '2',
 	'UNIDADES_DE_MEDIDA_id_unidad_medida' => '5',
 	'HUERTAS_id_huerta' => '1',
 	'id_producto' => $postData['id_producto']
 ]);
+
+// print_r($stmt->errorInfo());
 
 if($exito) {
 	$salida = [

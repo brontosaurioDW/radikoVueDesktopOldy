@@ -30,6 +30,8 @@ $exito = $stmt->execute([
 	'HUERTAS_id_huerta' => '1'
 ]);
 
+print_r($stmt->errorInfo());
+
 if($exito) {
 	$salida = [
 		'status' => 1,

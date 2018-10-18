@@ -64,7 +64,11 @@ let productsTable = {
 		    </tr>
 		  </thead>
 		  <tbody>
-		  	<products-table-row></products-table-row>
+		  	<products-table-row 
+		  		v-for="producto in productos"
+		  		:producto="producto"
+		  		:key="producto.id_producto"
+	  		></products-table-row>
 		  </tbody>
 		</table>
 	</div>
@@ -74,15 +78,15 @@ let productsTable = {
 			productos: []
 		}
 	},
-	computed: {
+	/*computed: {
 		estado: function() {
-			if (this.productos.activo) {
+			if (this.productos.estado) {
 				return 'Activo';
 			} else {
 				return 'Inactivo';
 			}
 		}
-	},
+	},*/
 	mounted() {
 		fetch('api/productos.php')
 			.then(respuesta => respuesta.json())
@@ -100,8 +104,7 @@ Vue.component('productsTable', productsTable);
 // -----------------------------------
 let productsTableRow = {
 	template: `
-	<div class="products-table-row">
-		<tr v-for="producto in productos">
+		<tr>
 			<td>{{ producto.id_producto }}</td>
 			<td>{{ producto.producto }}</td>
 			<td>{{ producto.precio }}</td>
@@ -112,29 +115,31 @@ let productsTableRow = {
 				<router-link :to="'/productos/' + producto.id_producto" class="btn btn-secondary btn-sm">Eliminar</router-link>
 			</td>
 		</tr> 
-	</div>
 	`,
 	data() {
 		return {
-			productos: []
+			//productos: []
 		}
 	},
 	computed: {
 		estado: function() {
-			if (this.productos.activo) {
+			if (this.producto.activo == "1") {
 				return 'Activo';
 			} else {
 				return 'Inactivo';
 			}
 		}
 	},
-	mounted() {
+	props: {
+		producto: Object
+	}
+	/*mounted() {
 		fetch('api/productos.php')
 			.then(respuesta => respuesta.json())
 			.then(data => {
 				this.productos = data;
 			});
-	}
+	}*/
 };
 Vue.component('productsTableRow', productsTableRow);
 
@@ -406,7 +411,7 @@ let ProductEditFormPage = {
 	methods: {
 		editar(producto) {
 			console.log('editando...')
-			fetch('api/editar-producto.php?', {
+			fetch('api/editar-producto.php', {
 				method: 'POST',
 				body: JSON.stringify(producto)
 			})
