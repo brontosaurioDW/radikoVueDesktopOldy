@@ -256,9 +256,11 @@ let ProductCreateFormPage = {
 					  </div>
 
 					  <div class="form-group row">
-					    <label for="estado" class="col-sm-2 col-form-label">Estado:</label>
+					    <label for="categorias" class="col-sm-2 col-form-label">Categorias:</label>
 					    <div class="col-sm-10">
-					      <input type="text" class="form-control" id="estado" v-model="producto.estado">
+						    <select v-model="producto.categoria" class="form-control" id="categorias">
+						      <option v-for="categoria in categorias" :value="categoria.id_categoria">{{categoria.categoria}}</option>
+						    </select>
 					    </div>
 					  </div>
 
@@ -275,6 +277,7 @@ let ProductCreateFormPage = {
 		</section>
 	</div>
 	`,
+
 	data() {
 		return {
 			producto: {
@@ -283,12 +286,15 @@ let ProductCreateFormPage = {
 				marca: '',
 				precio: '',
 				stock: '',
+				categoria: '',
 				estado: '',
 			},
+			categorias: {},
 			statusMsg: null,
 			status: null
 		}
 	},
+
 	methods: {
 		grabar(producto) {
 			console.log('grabando...')
@@ -308,6 +314,14 @@ let ProductCreateFormPage = {
 				}
 			});
 		}
+	},
+
+	mounted() {
+		fetch('api/categorias.php')
+			.then(respuesta => respuesta.json())
+			.then(data => {
+				this.categorias = data;
+			});
 	}
 };
 Vue.component('ProductCreateFormPage', ProductCreateFormPage);
@@ -460,10 +474,22 @@ const app = new Vue({
 				  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 				    <ul class="navbar-nav ml-auto">
 				      <li class="nav-item active">
-				      <router-link to="/" class="nav-link">Home (dashboard)</router-link>
+				      <router-link to="/" class="nav-link">Home</router-link>
 				      </li>
 				      <li class="nav-item">
-				      <router-link to="/productos" class="nav-link">Listado de huertas</router-link>
+				      <router-link to="/productos" class="nav-link">Mis productos</router-link>
+				      </li>
+				      <li class="nav-item">
+				      <a href="#" class="nav-link">Mis pedidos</a>
+				      </li>
+				      <li class="nav-item">
+				      <a href="#" class="nav-link">Mis datos</a>
+				      </li>
+				      <li class="nav-item">
+				      <a href="#" class="nav-link">Chat</a>
+				      </li>
+				      <li class="nav-item">
+				      <a href="#" class="nav-link">Cerrar sesión</a>
 				      </li>
 				    </ul>
 				  </div>

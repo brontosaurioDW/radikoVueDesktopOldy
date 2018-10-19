@@ -11,7 +11,7 @@ $postData = json_decode($buffer, true);
 
 $query = "
 	INSERT INTO productos (producto, descripcion, marca, precio, foto, stock, activo, fecha_alta, fecha_baja, CATEGORIAS_id_categoria, UNIDADES_DE_MEDIDA_id_unidad_medida, HUERTAS_id_huerta) 
-	VALUES (:producto, :descripcion, :marca, :precio, :foto, :stock, :activo, :fecha_alta, :fecha_baja, :CATEGORIAS_id_categoria, :UNIDADES_DE_MEDIDA_id_unidad_medida, :HUERTAS_id_huerta)";
+	VALUES (:producto, :descripcion, :marca, :precio, :foto, :stock, :activo, NOW(), NULL, :CATEGORIAS_id_categoria, :UNIDADES_DE_MEDIDA_id_unidad_medida, :HUERTAS_id_huerta)";
 
 $stmt = $db->prepare($query);
 
@@ -23,14 +23,14 @@ $exito = $stmt->execute([
 	'foto' => 'tomate.jpg',
 	'stock' => $postData['stock'],
 	'activo' => $postData['estado'],
-	'fecha_alta' => 'NOW()',
-	'fecha_baja' => 'DEFAULT',
 	'CATEGORIAS_id_categoria' => '2',
 	'UNIDADES_DE_MEDIDA_id_unidad_medida' => '5',
 	'HUERTAS_id_huerta' => '1'
 ]);
 
-print_r($stmt->errorInfo());
+print_r($postData);
+
+//print_r($stmt->errorInfo());
 
 if($exito) {
 	$salida = [
