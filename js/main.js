@@ -4,7 +4,7 @@
 let HomePage = {
 	template: `
 		<div>
-			<section class="container my-4">
+			<section class="container-fluid my-4">
 				<div class="row">
 					<div class="col-12">
 						<h2>Home (Dashboard)</h2>
@@ -12,8 +12,41 @@ let HomePage = {
 					</div>
 				</div>
 			</section>
+			<section class="container-fluid my-4">
+				<div class="row">
+					<div class="col-2">
+						<div class="media align-items-center">
+						  <img class="mr-3 img-responsive rounded" src="https://via.placeholder.com/80x80" alt="Generic placeholder image">
+						  <div class="media-body">
+						    <h5 class="mt-0">Hola {{ huerta.nombre_huerta }}</h5>
+						    {{ huerta.razon_social }}
+						  </div>
+						</div>						
+					</div>
+					<div class="col-10">
+						<h2 class="mb-4">Pedidos pendientes</h2>
+						<pedidos-table></pedidos-table>
+					</div>
+				</div>
+			</section>
 		</div>
-	`
+	`,
+
+	data() {
+		return {
+			huerta: []
+		}
+	},
+
+	mounted() {
+		fetch('api/huerta.php?id=1')
+			.then(respuesta => respuesta.json())
+			.then(data => {
+				console.log(data);
+				this.huerta = data;
+			});
+	}
+
 };
 Vue.component('HomePage', HomePage);
 
@@ -47,6 +80,74 @@ Vue.component('ProductsPage', ProductsPage);
 
 
 // -----------------------------------
+// Listado de pedidos 
+// Component: products-table
+// -----------------------------------
+let pedidosTable = {
+	template: `
+	<div class="pedidos-table">
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">N°</th>
+		      <th scope="col">Cliente</th>
+		      <th scope="col">Precio</th>
+		      <th scope="col">Día</th>
+		      <th scope="col">Pago</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	<pedidos-table-row 
+		  		v-for="pedido in pedidos"
+		  		:pedido="pedido"
+		  		:key="pedido.id_pedido"
+	  		></pedidos-table-row>
+		  </tbody>
+		</table>
+	</div>
+	`,
+
+	data() {
+		return {
+			pedidos: []
+		}
+	},
+
+	mounted() {
+		fetch('api/pedidos.php')
+			.then(respuesta => respuesta.json())
+			.then(data => {
+				this.pedidos = data;
+			});
+	}
+};
+Vue.component('pedidosTable', pedidosTable);
+
+
+// -----------------------------------
+// Listado de pedidos 
+// Component: products-table-row
+// -----------------------------------
+let pedidosTableRow = {
+	template: `
+		<tr>
+			<td>{{ pedido.id_pedido }}</td>
+			<td>{{ pedido.CLIENTES_fk_usuario}}</td>
+			<td>$ {{ pedido.subtotal }}</td>
+			<td>{{ pedido.fecha_pedido }}</td>
+			<td>{{ pedido.TIPO_PAGO_id_tipo_pago}}</td>	
+		</tr> 
+	`,
+
+	props: {
+		pedido: Object
+	}
+};
+Vue.component('pedidosTableRow', pedidosTableRow);
+
+
+
+// -----------------------------------
 // Listado de productos 
 // Component: products-table
 // -----------------------------------
@@ -73,20 +174,13 @@ let productsTable = {
 		</table>
 	</div>
 	`,
+
 	data() {
 		return {
 			productos: []
 		}
 	},
-	/*computed: {
-		estado: function() {
-			if (this.productos.estado) {
-				return 'Activo';
-			} else {
-				return 'Inactivo';
-			}
-		}
-	},*/
+
 	mounted() {
 		fetch('api/productos.php')
 			.then(respuesta => respuesta.json())
@@ -116,11 +210,7 @@ let productsTableRow = {
 			</td>
 		</tr> 
 	`,
-	data() {
-		return {
-			//productos: []
-		}
-	},
+
 	computed: {
 		estado: function() {
 			if (this.producto.activo == "1") {
@@ -130,16 +220,11 @@ let productsTableRow = {
 			}
 		}
 	},
+
 	props: {
 		producto: Object
 	}
-	/*mounted() {
-		fetch('api/productos.php')
-			.then(respuesta => respuesta.json())
-			.then(data => {
-				this.productos = data;
-			});
-	}*/
+
 };
 Vue.component('productsTableRow', productsTableRow);
 
@@ -473,23 +558,20 @@ const app = new Vue({
 
 				  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 				    <ul class="navbar-nav ml-auto">
-				      <li class="nav-item active">
-				      <router-link to="/" class="nav-link">Home</router-link>
+				      <li class="nav-item">
+				      	<router-link to="/productos" class="nav-link">Mis productos</router-link>
 				      </li>
 				      <li class="nav-item">
-				      <router-link to="/productos" class="nav-link">Mis productos</router-link>
+				      	<a href="#" class="nav-link">Mis pedidos</a>
 				      </li>
 				      <li class="nav-item">
-				      <a href="#" class="nav-link">Mis pedidos</a>
+				      	<a href="#" class="nav-link">Mis datos</a>
 				      </li>
 				      <li class="nav-item">
-				      <a href="#" class="nav-link">Mis datos</a>
+				      	<a href="#" class="nav-link">Chat</a>
 				      </li>
 				      <li class="nav-item">
-				      <a href="#" class="nav-link">Chat</a>
-				      </li>
-				      <li class="nav-item">
-				      <a href="#" class="nav-link">Cerrar sesión</a>
+				      	<a href="#" class="nav-link">Cerrar sesión</a>
 				      </li>
 				    </ul>
 				  </div>
