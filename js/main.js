@@ -161,8 +161,10 @@ let productsTable = {
 		    <tr>
 		      <th scope="col">#</th>
 		      <th scope="col">Producto</th>
+			  <th scope="col">Marca</th>
 		      <th scope="col">Precio</th>
 		      <th scope="col">Stock</th>
+			  <th scope="col">Estado</th>
 		      <th scope="col">Acciones</th>
 		    </tr>
 		  </thead>
@@ -188,6 +190,7 @@ let productsTable = {
 			.then(respuesta => respuesta.json())
 			.then(data => {
 				this.productos = data;
+				console.log(data);
 			});
 	}
 };
@@ -203,7 +206,9 @@ let productsTableRow = {
 		<tr>
 			<td>{{ producto.id_producto }}</td>
 			<td>{{ producto.producto }}</td>
+			<td>{{ producto.marca }}</td>
 			<td>{{ producto.precio }}</td>
+			<td>{{ producto.stock }} {{ producto.unidad_de_medida }}</td>
 			<td>{{ estado }}</td>
 			<td>
 				<router-link :to="'/productos/' + producto.id_producto" class="btn btn-secondary btn-sm">Ver</router-link>
@@ -341,6 +346,15 @@ let ProductCreateFormPage = {
 					      <input type="text" class="form-control" id="stock" v-model="producto.stock">
 					    </div>
 					  </div>
+					  
+					  <div class="form-group row">
+					    <label for="unidad" class="col-sm-2 col-form-label">Unidad de medida:</label>
+					    <div class="col-sm-10">
+						    <select v-model="producto.unidad" class="form-control" id="unidades">
+						      <option v-for="unidad in unidades" :value="unidad.id_unidad_medida">{{unidad.unidad_de_medida}}</option>
+						    </select>
+					    </div>
+					  </div>
 
 					  <div class="form-group row">
 					    <label for="categorias" class="col-sm-2 col-form-label">Categorias:</label>
@@ -376,7 +390,8 @@ let ProductCreateFormPage = {
 				categoria: '',
 				estado: '',
 			},
-			categorias: {},
+			categorias: [],
+			unidades: [],
 			statusMsg: null,
 			status: null
 		}
@@ -408,6 +423,11 @@ let ProductCreateFormPage = {
 			.then(data => {
 				this.categorias = data;
 			});
+		fetch('api/unidades.php')
+			.then(respuesta => respuesta.json())
+			.then(data => {
+				this.unidades = data;
+			});	
 	}
 };
 Vue.component('ProductCreateFormPage', ProductCreateFormPage);
