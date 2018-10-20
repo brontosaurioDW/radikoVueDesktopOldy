@@ -1,0 +1,53 @@
+.info-top {
+	width: 100%;
+	margin-bottom: 40px;
+
+	ul {
+		display: flex;
+		margin: 0 -1%;
+	}
+
+	li {
+		width: 24%;
+		margin: 0 1%;
+
+		i {
+			font-size: 28px;
+			margin-right: 20px;
+			color: $white;
+			fill: $white;
+		}
+
+		i,
+		i + span {
+			vertical-align: middle;
+			display: inline-block;
+		}
+
+		span span {
+			span {
+				display: block;
+				font-size: 23px;
+			}
+		}
+
+		@for $i from 1 through 4 {
+		    &:nth-child(#{length($colors)}n+#{$i}) {
+		        background-color: nth($colors, $i);
+		    }
+		}
+	}
+
+	a {
+		font-size: 18px;
+		height: 100px;
+		padding: 0 30px;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+		color: $white;
+	}
+}
