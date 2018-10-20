@@ -14,16 +14,16 @@ let HomePage = {
 			</section>
 			<section class="container-fluid my-4">
 				<div class="row">
-					<div class="col-2">
+					<div class="col-3">
 						<div class="media align-items-center">
-						  <img class="mr-3 img-responsive rounded" src="https://via.placeholder.com/80x80" alt="Generic placeholder image">
+						  <img class="mr-3 img-responsive rounded-circle" src="https://via.placeholder.com/80x80" alt="Generic placeholder image">
 						  <div class="media-body">
 						    <h5 class="mt-0">Hola {{ huerta.nombre_huerta }}</h5>
 						    {{ huerta.razon_social }}
 						  </div>
 						</div>						
 					</div>
-					<div class="col-10">
+					<div class="col-9">
 						<h2 class="mb-4">Pedidos pendientes</h2>
 						<pedidos-table></pedidos-table>
 					</div>
@@ -114,12 +114,14 @@ let pedidosTable = {
 	},
 
 	mounted() {
-		fetch('api/pedidos.php')
+		fetch('api/pedidos.php?id=1')
 			.then(respuesta => respuesta.json())
 			.then(data => {
+				console.log(data)
 				this.pedidos = data;
 			});
 	}
+
 };
 Vue.component('pedidosTable', pedidosTable);
 
@@ -132,10 +134,10 @@ let pedidosTableRow = {
 	template: `
 		<tr>
 			<td>{{ pedido.id_pedido }}</td>
-			<td>{{ pedido.CLIENTES_fk_usuario}}</td>
+			<td>{{ pedido.nombre}} {{ pedido.apellido}}</td>
 			<td>$ {{ pedido.subtotal }}</td>
 			<td>{{ pedido.fecha_pedido }}</td>
-			<td>{{ pedido.TIPO_PAGO_id_tipo_pago}}</td>	
+			<td>{{ pedido.tipo_pago }}</td>	
 		</tr> 
 	`,
 
@@ -382,7 +384,6 @@ let ProductCreateFormPage = {
 
 	methods: {
 		grabar(producto) {
-			console.log('grabando...')
 			fetch('api/grabar-producto.php', {
 				method: 'POST',
 				body: JSON.stringify(producto)
@@ -392,7 +393,7 @@ let ProductCreateFormPage = {
 				if(data.status == 1) {
 					this.status = 1;
 					this.statusMsg = "producto guardado";
-					router.push({ path: '/', message: this.statusMsg });
+					router.push({ path: '/productos', message: this.statusMsg });
 				} else {
 					this.status = 0;
 					this.statusMsg = "Error - Algo salió mal"
@@ -519,7 +520,7 @@ let ProductEditFormPage = {
 				if(data.status == 1) {
 					this.status = 1;
 					this.statusMsg = "producto guardado";
-					router.push({ path: '/', message: this.statusMsg });
+					router.push({ path: '/productos', message: this.statusMsg });
 				} else {
 					this.status = 0;
 					this.statusMsg = "Error - Algo salió mal"

@@ -11,7 +11,7 @@ $postData = json_decode($buffer, true);
 
 $query = "
 	INSERT INTO productos (producto, descripcion, marca, precio, foto, stock, activo, fecha_alta, fecha_baja, CATEGORIAS_id_categoria, UNIDADES_DE_MEDIDA_id_unidad_medida, HUERTAS_id_huerta) 
-	VALUES (:producto, :descripcion, :marca, :precio, :foto, :stock, :activo, NOW(), NULL, :CATEGORIAS_id_categoria, :UNIDADES_DE_MEDIDA_id_unidad_medida, :HUERTAS_id_huerta)";
+	VALUES (:producto, :descripcion, :marca, :precio, NULL, :stock, :activo, NOW(), NULL, :CATEGORIAS_id_categoria, :UNIDADES_DE_MEDIDA_id_unidad_medida, '1')";
 
 $stmt = $db->prepare($query);
 
@@ -20,15 +20,11 @@ $exito = $stmt->execute([
 	'descripcion' => $postData['descripcion'],
 	'marca' => $postData['marca'],
 	'precio' => $postData['precio'],
-	'foto' => 'tomate.jpg',
 	'stock' => $postData['stock'],
 	'activo' => $postData['estado'],
 	'CATEGORIAS_id_categoria' => '2',
 	'UNIDADES_DE_MEDIDA_id_unidad_medida' => '5',
-	'HUERTAS_id_huerta' => '1'
 ]);
-
-print_r($postData);
 
 //print_r($stmt->errorInfo());
 
@@ -37,11 +33,7 @@ if($exito) {
 		'status' => 1,
 		'data' => [
 			'id_producto' 	=> $db->lastInsertId(),
-			// 'producto' 		=> $postData['producto'],
-			// 'id_marca' 		=> $postData['id_marca'],
-			// 'id_categoria' 	=> $postData['id_categoria'],
-			// 'precio' 		=> $postData['precio'],
-			// 'descripcion' 	=> $postData['descripcion'],
+			'producto' 		=> $postData['producto']
 		]
 	];
 } else {

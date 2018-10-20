@@ -53,8 +53,8 @@ if($exito) {
 	$salida = [
 		'status' => 1,
 		'data' => [
-			//'id_producto' 	=> $db->lastInsertId(),
-			// 'producto' 		=> $postData['producto'],
+			'id_producto' 	=> $db->lastInsertId(),
+			'producto' 		=> $postData['producto'],
 			// 'id_marca' 		=> $postData['id_marca'],
 			// 'id_categoria' 	=> $postData['id_categoria'],
 			// 'precio' 		=> $postData['precio'],
