@@ -434,9 +434,12 @@ let ProductDetailPage = {
 Vue.component('ProductDetailPage', ProductDetailPage);
 
 
-// -----------------------------------
-// Formulario de creacion de producto
-// -----------------------------------
+/*
+	-----------------------------------
+	Formulario de creacion de producto
+	Component: poduct-create-form-table
+	-----------------------------------
+*/
 let ProductCreateFormPage = {
 	template: `
 		<div class="simple-page">
@@ -577,102 +580,146 @@ let ProductCreateFormPage = {
 };
 Vue.component('ProductCreateFormPage', ProductCreateFormPage);
 
-
-// -----------------------------------
-// Formulario de edición de producto
-// -----------------------------------
+/*
+	-----------------------------------
+	Formulario de edición de producto
+	Component: poduct-edit-form-table
+	-----------------------------------
+*/
 let ProductEditFormPage = {
 	template: `
-	<div>
-		<section class="container my-4">
-			<div class="row">
-				<div class="col-12">
+		<div class="simple-page">
+			<h2>Editar producto</h2>
+			<p>Completa los siguientes datos para editar el producto</p>
+			
+			<form @submit.prevent="editar(producto)" class="form">
+				<div class="form-row">
+					<div class="wrap-input">
+						<label class="label-input">Nombre del producto <span class="red bold">*</span></label>
+						<input 
+							class="input" 
+							type="text" 
+							name="nombre-producto" 
+							placeholder="Escribe el nombre del producto"
+							v-model="producto.producto">
+					</div>
 
-					<h2>Editar producto</h2>
-					<p>Completá el formulario para editar un nuevo producto</p>
+					<div class="wrap-input">
+						<label class="label-input">Precio <span class="red bold">*</span></label>
+						<input 
+							class="input" 
+							type="text" 
+							name="precio-producto" 
+							placeholder="¿Cuánto sale?"
+							v-model="producto.precio">
+					</div>
 
+			  	<div class="wrap-input">
+				    <label class="label-input" for="categorias">Categoría <span class="red bold">*</span></label>
+				    <div>
+					    <select v-model="producto.categoria" class="select" id="categorias">
+					      <option v-for="categoria in categorias" :value="categoria.id_categoria">{{categoria.categoria}}</option>
+					    </select>
+				    </div>
+				  </div>
+
+					<div class="wrap-input">
+						<label class="label-input">Marca <span class="red bold">*</span></label>
+						<input 
+							class="input" 
+							type="text" 
+							name="marca-producto" 
+							placeholder="Agrega la marca"
+							v-model="producto.marca">
+					</div>
+
+					<div class="flex">
+						<div class="wrap-input half-input">
+							<label class="label-input">Stock <span class="red bold">*</span></label>
+							<input 
+								class="input" 
+								type="text" 
+								name="stock-producto" 
+								placeholder="¿Cuántos quedan?"
+								v-model="producto.stock">
+						</div>
+
+						<div class="wrap-input half-input">
+							<label class="label-input" for="unidad">Unidad de medida <span class="red bold">*</span></label>
+							<div>
+						    <select v-model="producto.unidad" class="select" id="unidades">
+						      <option 
+						      	v-for="unidad in unidades" 
+						      	:value="unidad.id_unidad_medida"
+						      	:selected="selected">{{unidad.unidad_de_medida}}</option>
+						    </select>
+							</div>
+						</div>							
+					</div>
+
+					<div class="wrap-input">
+						<label class="label-input">Descripción <span class="red bold">*</span></label>
+						<textarea 
+							class="textarea" 
+							name="nombre-producto" 
+							cols="15"
+							rows="5" 
+							placeholder="Agrega una descripción del producto"
+							v-model="producto.descripcion"></textarea>
+					</div>
+
+					<div class="text-right">
+						<button class="btn btn-primary btn-lg">Editar</button>
+					</div>
 				</div>
-			</div>
-		</section>
-
-		<section class="container">
-			<div class="row">
-				<div class="col-12">
-
-					<form @submit.prevent="editar(producto)" class="needs-validation" novalidate>
-
-					  <div class="form-group row">
-					    <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
-					    <div class="col-sm-10">
-					      <input type="text" class="form-control" id="nombre" v-model="producto.producto">
-					      <div class="invalid-feedback">Este campo es requerido</div>
-					    </div>
-					  </div>
-
-					  <div class="form-group row">
-					    <label for="descripcion" class="col-sm-2 col-form-label">Descripción:</label>
-					    <div class="col-sm-10">
-					      <textarea class="form-control" id="descripcion" col="5" rows="5" v-model="producto.descripcion">
-					      </textarea>
-					    </div>
-					  </div>
-
-					  <div class="form-group row">
-					    <label for="marca" class="col-sm-2 col-form-label">Marca:</label>
-					    <div class="col-sm-10">
-					      <input type="text" class="form-control" id="marca" v-model="producto.marca">
-					    </div>
-					  </div>
-
-					  <div class="form-group row">
-					    <label for="precio" class="col-sm-2 col-form-label">Precio:</label>
-					    <div class="col-sm-10">
-					      <input type="text" class="form-control" id="precio" v-model="producto.precio">
-					    </div>
-					  </div>
-
-					  <div class="form-group row">
-					    <label for="stock" class="col-sm-2 col-form-label">Stock:</label>
-					    <div class="col-sm-10">
-					      <input type="text" class="form-control" id="stock" v-model="producto.stock">
-					    </div>
-					  </div>
-
-					  <div class="form-group row">
-					    <label for="estado" class="col-sm-2 col-form-label">Estado:</label>
-					    <div class="col-sm-10">
-					      <input type="text" class="form-control" id="estado" v-model="producto.activo">
-					    </div>
-					  </div>
-
-					  <div class="form-group row">
-					    <div class="col-sm-10 offset-sm-2">
-							<button type="submit" class="btn btn-primary">Editar producto</button>
-					    </div>
-					  </div>
-
-					</form>
-
-				</div>
-			</div>
-		</section>
-	</div>
+			</form>		
+		</div>
 	`,
+
 	data() {
 		return {
-			producto: [],
+			producto: {
+				producto: '',
+				descripcion: '',
+				marca: '',
+				precio: '',
+				stock: '',
+				categoria: '',
+				estado: '',
+			},
+			categorias: [],
+			unidades: [],
 			statusMsg: null,
 			status: null
 		}
 	},
+
+	computed: {
+		selected() {
+			return 'selected';
+		}
+	},
+
 	mounted() {
 		let id = this.$route.params.id;
 		fetch('api/producto.php?id=' + id)
 			.then(response => response.json())
 			.then(data => {
 				this.producto = data;
+				console.log(data)
 			});
+		fetch('api/categorias.php')
+			.then(respuesta => respuesta.json())
+			.then(data => {
+				this.categorias = data;
+			});
+		fetch('api/unidades.php')
+			.then(respuesta => respuesta.json())
+			.then(data => {
+				this.unidades = data;
+			});	
 	},
+
 	methods: {
 		editar(producto) {
 			fetch('api/editar-producto.php', {
@@ -696,6 +743,12 @@ let ProductEditFormPage = {
 Vue.component('ProductEditFormPage', ProductEditFormPage);
 
 
+/*
+	-----------------------------------
+	Datos de la huerta
+	Component: datos-huerta
+	-----------------------------------
+*/
 let datosHuerta = {
 	template: `
 		<div class="user">
