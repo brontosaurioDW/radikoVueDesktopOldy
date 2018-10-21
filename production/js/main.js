@@ -20,7 +20,7 @@ let HomePage = {
 					</div>
 				</div>
 
-				<div class="col-4">		
+				<div class="col-4">
 
 					<h2>Últimos mensajes</h2>				
 
@@ -169,6 +169,7 @@ Vue.component('infoTop', infoTop);
 /*
 	------------------------
 	listado de pedidos
+	Component: pedidos-table
 	------------------------
 */
 let pedidosTable = {
@@ -204,7 +205,6 @@ let pedidosTable = {
 		fetch('api/pedidos.php?id=1')
 			.then(respuesta => respuesta.json())
 			.then(data => {
-				console.log(data)
 				this.pedidos = data;
 			});
 	}
@@ -216,7 +216,7 @@ Vue.component('pedidosTable', pedidosTable);
 /*
 	-----------------------------------
 	Listado de pedidos 
-	Component: products-table-row
+	Component: pedidos-table-row
 	-----------------------------------
 */
 let pedidosTableRow = {
@@ -242,13 +242,15 @@ let pedidosTableRow = {
 Vue.component('pedidosTableRow', pedidosTableRow);
 
 
-// -----------------------------------
-// Listado de productos
-// -----------------------------------
+/*
+	-----------------------------------
+	Listado de productos
+	Component: products-page
+	-----------------------------------
+*/
 let ProductsPage = {
 	template: `
 		<div class="simple-page">
-
 			<h2>Listado de productos de tu huerta</h2>
 			<p>Acá podés visualizar todos tus productos, editarlos o eliminarlos</p>
 			
@@ -259,8 +261,7 @@ let ProductsPage = {
 
 			<div class="simple-box">
 				<products-table></products-table>
-
-
+			</div>
 		</div>
 	`
 };
@@ -304,41 +305,40 @@ let productsTable = {
 			.then(respuesta => respuesta.json())
 			.then(data => {
 				this.productos = data;
-				console.log(data);
 			});
 	}
 };
 Vue.component('productsTable', productsTable);
 
 
-// -----------------------------------
-// Listado de productos 
-// Component: products-table-row
-// -----------------------------------
+/*
+	-----------------------------------
+	Listado de productos 
+	Component: products-table-row
+	-----------------------------------
+*/
 let productsTableRow = {
 	template: `
-
-				<tr>
-						<td>{{ producto.producto }}</td>
-						<td>{{ producto.marca }}</td>
-						<td>$ {{ producto.precio }}</td>
-						<td>{{ producto.stock }} {{ producto.unidad_de_medida }}</td>
-						<td>{{ estado }}</td>
-						<td>
-							<router-link :to="'/productos/' + producto.id_producto" class="btn btn-primary">Ver</router-link>
-							<router-link :to="'/productos/edit/' + producto.id_producto" class="btn btn-terciary">Editar</router-link>
-							<router-link :to="'/productos/' + producto.id_producto" class="btn btn-secondary btn-sm">Eliminar</router-link>
-						</td>
-					</tr>
-
+		<tr>
+			<td>{{ producto.producto }}</td>
+			<td>{{ producto.marca }}</td>
+			<td>$ {{ producto.precio }}</td>
+			<td>{{ producto.stock }} {{ producto.unidad_de_medida }}</td>
+			<td>{{ estado }}</td>
+			<td>
+				<router-link :to="'/productos/' + producto.id_producto" class="btn btn-primary">Ver</router-link>
+				<router-link :to="'/productos/edit/' + producto.id_producto" class="btn btn-terciary">Editar</router-link>
+				<router-link :to="'/productos/' + producto.id_producto" class="btn btn-secondary btn-sm">Eliminar</router-link>
+			</td>
+		</tr>
 	`,
 
 	computed: {
 		estado: function() {
 			if (this.producto.activo == "1") {
-				return 'Activo';
+				return 'Publicado';
 			} else {
-				return 'Inactivo';
+				return 'No publicado';
 			}
 		}
 	},
@@ -346,51 +346,83 @@ let productsTableRow = {
 	props: {
 		producto: Object
 	}
-
 };
 Vue.component('productsTableRow', productsTableRow);
 
 
-// -----------------------------------
-// Detalle de producto
-// -----------------------------------
+/*
+	-----------------------------------
+	Detalle de producto
+	Component: product-detail-page
+	-----------------------------------
+*/
 let ProductDetailPage = {
 	template: `
-	<div>
-		<section class="container my-4">
-			<div class="row">
-				<div class="col-12">
-					<h2>{{producto.producto}}</h2>
-					<p>{{producto.descripcion}}</p>
-				</div>
-			</div>
-		</section>
+		<div class="simple-page">
 
-		<section class="container">
-			<div class="row">
-				<div class="col-12">
-					<ul class="list-group list-group-flush mb-4">
-					  <li class="list-group-item"><b>Marca:</b> {{producto.marca}}</li>
-					  <li class="list-group-item"><b>Precio:</b> {{producto.precio}}</li>
-					  <li class="list-group-item"><b>Foto:</b> {{producto.foto}}</li>
-					  <li class="list-group-item"><b>Stock:</b> {{producto.stock}}</li>
-					  <li class="list-group-item"><b>Activo:</b> {{producto.activo}}</li>
-					  <li class="list-group-item"><b>Fecha de alta:</b> {{producto.fecha_alta}}</li>
-					  <li class="list-group-item"><b>Fecha de baja:</b> {{producto.fecha_baja}}</li>
-					</ul>	   
-					<router-link class="btn btn-secondary" to="/">Editar</router-link>
+			<div class="simple-box box-a product">
+				<div class="flex flex-top">
+					<div class="product-left">
+						<div class="product-photo">
+							<img src="https://d26lpennugtm8s.cloudfront.net/stores/120/084/products/imagen18-6cc3393074105981b315122095252932-1024-1024.png" alt="Aceitunas">
+						</div>
+						<div class="product-info">
+							<h2>{{producto.producto}}</h2>
+							<p>
+								{{ producto.descripcion }}
+							</p>
+						</div>						
+					</div>
+
+					<div class="product-right">
+						<h3>Info del producto</h3>
+						<table class="table-c">
+							<tr>
+								<th>Marca</th>
+								<td>{{ producto.marca }}</td>
+							</tr>
+							<tr>
+								<th>Precio</th>
+								<td>$ {{ producto.precio }}</td>
+							</tr>
+							<tr>
+								<th>Publicado</th>
+								<td>{{ publicado }}</td>
+							</tr>
+							<tr class="stock-ok"> <!-- class="stock-no" si no hay stock -->
+								<th>Stock</th>
+								<td class="bold">{{ producto.stock }} {{ producto.unidad_de_medida }}</td>
+							</tr>								
+						</table>
+
+						<div class="product-bottom">
+							<router-link :to="'/productos/edit/' + producto.id_producto" class="btn btn-terciary">Editar</router-link>
+							<a href="#" class="btn btn-secondary">Eliminar</a>
+						</div>
+
+					</div>
 				</div>
-			</div>
-		</section>
-	</div>
+			</div>				
+		</div>
 	`,
+
 	data() {
 		return {
 			producto: {}
 		};
 	},
-	mounted() {
 
+	computed: {
+		publicado: function() {
+			if (this.producto.activo == "1") {
+				return 'Sí';
+			} else {
+				return 'No';
+			}
+		}
+	},
+
+	mounted() {
 		let id = this.$route.params.id;
 		fetch('api/producto.php?id=' + id)
 			.then(response => response.json())
@@ -407,91 +439,89 @@ Vue.component('ProductDetailPage', ProductDetailPage);
 // -----------------------------------
 let ProductCreateFormPage = {
 	template: `
-	<div>
-		<section class="container my-4">
-			<div class="row">
-				<div class="col-12">
+		<div class="simple-page">
+			<h2>Nuevo producto</h2>
+			<p>Completa los siguientes datos para cargar un nuevo producto de tu huerta</p>
+			
+			<form @submit.prevent="grabar(producto)" class="form">
+				<div class="form-row">
+					<div class="wrap-input">
+						<label class="label-input">Nombre del producto <span class="red bold">*</span></label>
+						<input 
+							class="input" 
+							type="text" 
+							name="nombre-producto" 
+							placeholder="Escribe el nombre del producto"
+							v-model="producto.producto">
+					</div>
 
-					<h2>Crear producto</h2>
-					<p>Completá el formulario para crear un nuevo producto</p>
+					<div class="wrap-input">
+						<label class="label-input">Precio <span class="red bold">*</span></label>
+						<input 
+							class="input" 
+							type="text" 
+							name="precio-producto" 
+							placeholder="¿Cuánto sale?"
+							v-model="producto.precio">
+					</div>
 
-				</div>
-			</div>
-		</section>
+			  	<div class="wrap-input">
+				    <label class="label-input" for="categorias">Categoría <span class="red bold">*</span></label>
+				    <div>
+					    <select v-model="producto.categoria" class="select" id="categorias">
+					      <option v-for="categoria in categorias" :value="categoria.id_categoria">{{categoria.categoria}}</option>
+					    </select>
+				    </div>
+				  </div>
 
-		<section class="container">
-			<div class="row">
-				<div class="col-12">
+					<div class="wrap-input">
+						<label class="label-input">Marca <span class="red bold">*</span></label>
+						<input 
+							class="input" 
+							type="text" 
+							name="marca-producto" 
+							placeholder="Agrega la marca"
+							v-model="producto.marca">
+					</div>
 
-					<form @submit.prevent="grabar(producto)" class="needs-validation" novalidate>
+					<div class="flex">
+						<div class="wrap-input half-input">
+							<label class="label-input">Stock <span class="red bold">*</span></label>
+							<input 
+								class="input" 
+								type="text" 
+								name="stock-producto" 
+								placeholder="¿Cuántos quedan?"
+								v-model="producto.stock">
+						</div>
 
-					  <div class="form-group row">
-					    <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
-					    <div class="col-sm-10">
-					      <input type="text" class="form-control" id="nombre" v-model="producto.producto">
-					      <div class="invalid-feedback">Este campo es requerido</div>
-					    </div>
-					  </div>
-
-					  <div class="form-group row">
-					    <label for="descripcion" class="col-sm-2 col-form-label">Descripción:</label>
-					    <div class="col-sm-10">
-					      <textarea class="form-control" id="descripcion" col="5" rows="5" v-model="producto.descripcion">
-					      </textarea>
-					    </div>
-					  </div>
-
-					  <div class="form-group row">
-					    <label for="marca" class="col-sm-2 col-form-label">Marca:</label>
-					    <div class="col-sm-10">
-					      <input type="text" class="form-control" id="marca" v-model="producto.marca">
-					    </div>
-					  </div>
-
-					  <div class="form-group row">
-					    <label for="precio" class="col-sm-2 col-form-label">Precio:</label>
-					    <div class="col-sm-10">
-					      <input type="text" class="form-control" id="precio" v-model="producto.precio">
-					    </div>
-					  </div>
-
-					  <div class="form-group row">
-					    <label for="stock" class="col-sm-2 col-form-label">Stock:</label>
-					    <div class="col-sm-10">
-					      <input type="text" class="form-control" id="stock" v-model="producto.stock">
-					    </div>
-					  </div>
-					  
-					  <div class="form-group row">
-					    <label for="unidad" class="col-sm-2 col-form-label">Unidad de medida:</label>
-					    <div class="col-sm-10">
-						    <select v-model="producto.unidad" class="form-control" id="unidades">
+						<div class="wrap-input half-input">
+							<label class="label-input" for="unidad">Unidad de medida <span class="red bold">*</span></label>
+							<div>
+						    <select v-model="producto.unidad" class="select" id="unidades">
 						      <option v-for="unidad in unidades" :value="unidad.id_unidad_medida">{{unidad.unidad_de_medida}}</option>
 						    </select>
-					    </div>
-					  </div>
+							</div>
+						</div>							
+					</div>
 
-					  <div class="form-group row">
-					    <label for="categorias" class="col-sm-2 col-form-label">Categorias:</label>
-					    <div class="col-sm-10">
-						    <select v-model="producto.categoria" class="form-control" id="categorias">
-						      <option v-for="categoria in categorias" :value="categoria.id_categoria">{{categoria.categoria}}</option>
-						    </select>
-					    </div>
-					  </div>
+					<div class="wrap-input">
+						<label class="label-input">Descripción <span class="red bold">*</span></label>
+						<textarea 
+							class="textarea" 
+							name="nombre-producto" 
+							cols="15"
+							rows="5" 
+							placeholder="Agrega una descripción del producto"
+							v-model="producto.descripcion"></textarea>
+					</div>
 
-					  <div class="form-group row">
-					    <div class="col-sm-10 offset-sm-2">
-							<button type="submit" class="btn btn-primary">Crear producto</button>
-					    </div>
-					  </div>
-
-					</form>
-
+					<div class="text-right">
+						<button class="btn btn-primary btn-lg">Agregar</button>
+					</div>
 				</div>
-			</div>
-		</section>
-	</div>
+			</form>		
+		</div>
 	`,
 
 	data() {
@@ -645,7 +675,6 @@ let ProductEditFormPage = {
 	},
 	methods: {
 		editar(producto) {
-			console.log('editando...')
 			fetch('api/editar-producto.php', {
 				method: 'POST',
 				body: JSON.stringify(producto)
@@ -689,12 +718,12 @@ let datosHuerta = {
 		fetch('api/huerta.php?id=1')
 			.then(respuesta => respuesta.json())
 			.then(data => {
-				console.log(data);
 				this.huerta = data;
 			});
 	}
 };
 Vue.component('datosHuerta', datosHuerta);
+
 
 const routes = [
 	{path: '/', component: HomePage},
@@ -704,10 +733,10 @@ const routes = [
 	{path: '/productos/:id', component: ProductDetailPage}
 ];
 
+
 const router = new VueRouter({
 	routes
 });
-
 
 
 const app = new Vue({

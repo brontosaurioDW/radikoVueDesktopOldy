@@ -12,7 +12,7 @@ $query = "SELECT p.id_pedido, p.subtotal, p.fecha_pedido, u.nombre, u.apellido, 
 			INNER JOIN tipos_pagos AS tp
 			ON p.TIPO_PAGO_id_tipo_pago = tp.id_tipo_pago
 
-			WHERE HUERTAS_id_huerta = '1';";
+			WHERE HUERTAS_id_huerta = '1'";
 
 $stmt = $db->prepare($query);
 
