@@ -329,7 +329,7 @@ let productsTableRow = {
 			<td>
 				<router-link :to="'/productos/' + producto.id_producto" class="btn btn-primary">Ver</router-link>
 				<router-link :to="'/productos/edit/' + producto.id_producto" class="btn btn-terciary">Editar</router-link>
-				<router-link :to="'/productos/' + producto.id_producto" class="btn btn-secondary btn-sm">Eliminar</router-link>
+				<a class="btn btn-secondary btn-sm" @click="eliminar(producto)">Eliminar</a>
 			</td>
 		</tr>
 	`,
@@ -354,6 +354,26 @@ let productsTableRow = {
 
 	props: {
 		producto: Object
+	},
+
+	methods: {
+		eliminar(producto) {
+			fetch('api/eliminar-producto.php', {
+				method: 'POST',
+				body: JSON.stringify(producto)
+			})
+			.then(response => response.json())
+			.then(data => {
+				if(data.status == 1) {
+					this.status = 1;
+					this.statusMsg = "producto eliminado";
+					router.push({ path: '/productos', message: this.statusMsg });
+				} else {
+					this.status = 0;
+					this.statusMsg = "Error - Algo salió mal"
+				}
+			});
+		}
 	}
 };
 Vue.component('productsTableRow', productsTableRow);
@@ -406,7 +426,7 @@ let ProductDetailPage = {
 
 						<div class="product-bottom">
 							<router-link :to="'/productos/edit/' + producto.id_producto" class="btn btn-terciary">Editar</router-link>
-							<a href="#" class="btn btn-secondary">Eliminar</a>
+							<a class="btn btn-secondary btn-sm" @click="eliminar(producto)">Eliminar</a>
 						</div>
 
 					</div>
@@ -428,6 +448,26 @@ let ProductDetailPage = {
 			} else {
 				return 'No';
 			}
+		}
+	},
+
+	methods: {
+		eliminar(producto) {
+			fetch('api/eliminar-producto.php', {
+				method: 'POST',
+				body: JSON.stringify(producto)
+			})
+			.then(response => response.json())
+			.then(data => {
+				if(data.status == 1) {
+					this.status = 1;
+					this.statusMsg = "producto eliminado";
+					router.push({ path: '/productos', message: this.statusMsg });
+				} else {
+					this.status = 0;
+					this.statusMsg = "Error - Algo salió mal"
+				}
+			});
 		}
 	},
 
