@@ -305,6 +305,7 @@ let productsTable = {
 			.then(respuesta => respuesta.json())
 			.then(data => {
 				this.productos = data;
+				console.log(data);
 			});
 	}
 };
@@ -321,7 +322,7 @@ let productsTableRow = {
 	template: `
 		<tr>
 			<td>{{ producto.producto }}</td>
-			<td>{{ producto.marca }}</td>
+			<td>{{ marca }}</td>
 			<td>$ {{ producto.precio }}</td>
 			<td>{{ producto.stock }} {{ producto.unidad_de_medida }}</td>
 			<td>{{ estado }}</td>
@@ -334,12 +335,20 @@ let productsTableRow = {
 	`,
 
 	computed: {
+
 		estado: function() {
 			if (this.producto.activo == "1") {
 				return 'Publicado';
 			} else {
 				return 'No publicado';
 			}
+		},
+
+		marca: function() {
+			if(this.producto.marca == null) {
+				return '-';
+			}
+				return this.producto.marca;
 		}
 	},
 
@@ -391,7 +400,7 @@ let ProductDetailPage = {
 							</tr>
 							<tr class="stock-ok"> <!-- class="stock-no" si no hay stock -->
 								<th>Stock</th>
-								<td class="bold">{{ producto.stock }} {{ producto.unidad_de_medida }}</td>
+								<td class="bold">{{ producto.stock }} {{ producto.unidad }}</td>
 							</tr>								
 						</table>
 
