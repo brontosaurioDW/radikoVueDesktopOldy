@@ -16,15 +16,14 @@ SET
 	descripcion = :descripcion,
 	marca = :marca,
 	precio = :precio,
-	foto = :foto,
 	stock = :stock,
 	activo = :activo,
 	stock = :stock,
 	fecha_alta = NOW(),
-	fecha_baja = :fecha_baja,
-	CATEGORIAS_id_categoria = :CATEGORIAS_id_categoria,
-	UNIDADES_DE_MEDIDA_id_unidad_medida = :UNIDADES_DE_MEDIDA_id_unidad_medida,
-	HUERTAS_id_huerta = :HUERTAS_id_huerta
+	fecha_baja = NULL,
+	CATEGORIAS_id_categoria = :categoria,
+	UNIDADES_DE_MEDIDA_id_unidad_medida = :unidad,
+	HUERTAS_id_huerta = 1
 WHERE
 	id_producto = :id_producto";
 
@@ -35,13 +34,10 @@ $exito = $stmt->execute([
 	'descripcion' => $postData['descripcion'],
 	'marca' => $postData['marca'],
 	'precio' => $postData['precio'],
-	'foto' => 'tomate.jpg',
 	'stock' => $postData['stock'],
 	'activo' => $postData['activo'],
-	'fecha_baja' => NULL,
-	'CATEGORIAS_id_categoria' => $postData['id_categoria'],
-	'UNIDADES_DE_MEDIDA_id_unidad_medida' => $postData['id_unidad'],
-	'HUERTAS_id_huerta' => '1',
+	'categoria' => $postData['id_categoria'],
+	'unidad' => $postData['id_unidad'],
 	'id_producto' => $postData['id_producto']
 ]);
 
