@@ -331,10 +331,7 @@ let productsTableRow = {
 			<td>
 				<router-link :to="'/productos/' + producto.id_producto" class="btn btn-primary">Ver</router-link>
 				<router-link :to="'/productos/edit/' + producto.id_producto" class="btn btn-terciary">Editar</router-link>
-				
-				<button class="btn btn-secondary btn-sm" @click="showConfirmationModal = true" >Eliminar</button>
-				
-				<!--<a class="btn btn-secondary btn-sm" @click="eliminar(producto)">Eliminar</a>-->			
+				<a class="btn btn-secondary btn-sm" @click="eliminar(producto)">Eliminar</a>		
 			</td>
 		</tr>
 	`,
@@ -359,8 +356,7 @@ let productsTableRow = {
 	},
 
 	props: {
-		producto: Object,
-		showConfirmationModal: Boolean
+		producto: Object
 	},
 
 	methods: {
@@ -837,42 +833,6 @@ let datosHuerta = {
 Vue.component('datosHuerta', datosHuerta);
 
 
-/*
-	-----------------------------------
-	modal
-	Component: modal-dialog
-	-----------------------------------
-*/
-let modalDialog = {
-	template: `	  
-	<div class="modal is-active">
-		<div class="modal-background"></div>
-		<div class="modal-content">
-			<div class="box">
-				<slot></slot>
-			</div>
-		</div>
-		<button class="modal-close is-large" @click="$emit('close')" aria-label="close"></button>
-	</div>
-    `,
-	props: ['show'],
-	methods: {
-		close: function () {
-			this.$emit('close');
-		}
-	},
-	mounted: function () {
-		document.addEventListener("keydown", (e) => {
-			if (this.show && e.keyCode == 27) {
-				this.close();
-			}
-		});
-	}
-};
-Vue.component('modalDialog', modalDialog);
-
-
-
 const routes = [
 	{path: '/', component: HomePage},
 	{path: '/productos', component: ProductsPage},
@@ -946,15 +906,6 @@ const app = new Vue({
 			<div class="col-right">
 				<router-view></router-view>
 			</div>
-			
-			<modal-dialog v-if="showConfirmationModal" @close="close" :show="show">
-				<p>Seguro que deseas eliminar el producto?</p>
-				<button class="btn btn-primary btn-small">Cancelar</button>
-				<button class="btn btn-terciary btn-small">Confirmar</button>
-			</modal-dialog>
 		</div>
-	`,
-	data: {
-		showConfirmationModal: false
-	}
+	`
 });

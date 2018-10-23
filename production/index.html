@@ -6,6 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<title>Radiko - Panel de huertas</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/css/vuejs-dialog.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
 </head>
 <body>
@@ -18,12 +20,16 @@
 
 	<!-- Vue Router -->
 	<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-	
+
+	<!-- Vue Dialog -->
+	<script type="text/javascript" src="assets/js/vuejs-dialog.min.js"></script>
+
 	<!-- Javascript principal -->
 	<script src="js/main.js"></script>
 
-	<!-- Select Style -->
-	<!-- <script type="text/javascript" src="assets/js/selects.js"></script> -->
-	
+	<script>
+		// Tell Vue to install the plugin.
+		window.Vue.use(VuejsDialog.main.default)
+	</script> 
 </body>
 </html>
