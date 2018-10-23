@@ -423,6 +423,10 @@ let ProductDetailPage = {
 								<th>Publicado</th>
 								<td>{{ publicado }}</td>
 							</tr>
+							<tr>
+								<th>Categoria</th>
+								<td>{{ producto.categoria }}</td>
+							</tr>
 							<tr class="stock-ok"> <!-- class="stock-no" si no hay stock -->
 								<th>Stock</th>
 								<td class="bold">{{ producto.stock }} {{ producto.unidad }}</td>
