@@ -504,6 +504,10 @@ let ProductCreateFormPage = {
 		<div class="simple-page">
 			<h2>Nuevo producto</h2>
 			<p>Completa los siguientes datos para cargar un nuevo producto de tu huerta</p>
+
+			<div v-show="isError" class="error">
+				<p>{{ statusMsg }}</p>
+			</div>
 			
 			<form @submit.prevent="grabar(producto)" class="form">
 				<div class="form-row">
@@ -603,7 +607,8 @@ let ProductCreateFormPage = {
 			categorias: [],
 			unidades: [],
 			statusMsg: null,
-			status: null
+			status: null,
+			isError: false
 		}
 	},
 
@@ -622,6 +627,7 @@ let ProductCreateFormPage = {
 				} else {
 					this.status = 0;
 					this.statusMsg = "Error - Algo salió mal"
+					this.isError = true
 				}
 			});
 		}
