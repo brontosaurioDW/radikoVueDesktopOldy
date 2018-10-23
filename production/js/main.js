@@ -180,8 +180,8 @@ let pedidosTable = {
 					<th>N°</th>
 					<th>Cliente</th>					
 					<th class="text-center">Precio</th>
-					<th class="text-center">Dia</th>
-					<th class="text-center">Pago</th>
+					<th class="text-center">Día de entrega</th>
+					<th class="text-center">Estado</th>
 					<th></th>
 				</tr>
 		  </thead>
@@ -225,8 +225,8 @@ let pedidosTableRow = {
 			<td class="bold">#{{ pedido.id_pedido }}</td>
 			<td>{{ pedido.nombre}} {{ pedido.apellido}}</td>
 			<td class="text-center">$ {{ pedido.subtotal }}</td>
-			<td class="text-center">{{ pedido.fecha_pedido }}</td>
-			<td class="text-center">{{ pedido.tipo_pago }}</td>
+			<td class="text-center">{{ pedido.fecha_envio }}</td>
+			<td class="text-center">{{ pedido.estado }}</td>
 			<td class="text-right">
 				<a href="#">
 					<i class="icon icon-ch-right"></i>
@@ -526,6 +526,7 @@ let ProductCreateFormPage = {
 				    <label class="label-input" for="categorias">Categoría <span class="red bold">*</span></label>
 				    <div>
 					    <select v-model="producto.categoria" class="select" id="categorias">
+							<option value="" disabled selected>Seleccioná una categoría</option>
 					      <option v-for="categoria in categorias" :value="categoria.id_categoria">{{categoria.categoria}}</option>
 					    </select>
 				    </div>
@@ -556,6 +557,7 @@ let ProductCreateFormPage = {
 							<label class="label-input" for="unidad">Unidad de medida <span class="red bold">*</span></label>
 							<div>
 						    <select v-model="producto.unidad" class="select" id="unidades">
+								<option value="" disabled selected>Seleccioná una unidad de medida</option>
 						      <option v-for="unidad in unidades" :value="unidad.id_unidad_medida">{{unidad.unidad_de_medida}}</option>
 						    </select>
 							</div>
@@ -591,6 +593,7 @@ let ProductCreateFormPage = {
 				stock: '',
 				categoria: '',
 				estado: '',
+				unidad: ''
 			},
 			categorias: [],
 			unidades: [],
