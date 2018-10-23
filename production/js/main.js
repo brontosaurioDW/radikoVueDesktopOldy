@@ -400,7 +400,7 @@ let ProductDetailPage = {
 				<div class="flex flex-top">
 					<div class="product-left">
 						<div class="product-photo">
-							<img src="https://d26lpennugtm8s.cloudfront.net/stores/120/084/products/imagen18-6cc3393074105981b315122095252932-1024-1024.png" alt="Aceitunas">
+							<img :src="imagen" alt="">
 						</div>
 						<div class="product-info">
 							<h2>{{producto.producto}}</h2>
@@ -454,6 +454,13 @@ let ProductDetailPage = {
 				return 'Sí';
 			} else {
 				return 'No';
+			}
+		},
+		imagen: function(){
+			if (this.producto.foto == null) {
+				return 'storage/imgdefault.jpeg' ;
+			} else {
+				return 'storage/' + this.producto.foto;
 			}
 		}
 	},
