@@ -132,6 +132,10 @@ button {
   transition: 0.3s;
   cursor: pointer;
 }
+a:hover,
+button:hover {
+  color: #FFFFFF;
+}
 
 a.basic {
   font-family: "Ebrima-Bold", sans-serif;
@@ -151,7 +155,7 @@ a.basic {
 }
 
 h2 {
-  font-size: 23px;
+  font-size: 30px;
   color: #4b4b4b;
   text-transform: uppercase;
   font-family: "Gobold", sans-serif;
@@ -159,7 +163,7 @@ h2 {
 }
 
 h3 {
-  font-size: 20px;
+  font-size: 25px;
   color: #4b4b4b;
   text-transform: uppercase;
   font-family: "Gobold", sans-serif;
@@ -248,6 +252,9 @@ h3 {
   border: 0;
   outline: none;
   margin-top: 15px;
+  padding: 0;
+  box-shadow: none;
+  font-family: "Ebrima", sans-serif;
 }
 .form .half-input {
   width: 49%;
@@ -411,6 +418,9 @@ h1 a {
   vertical-align: middle;
   display: inline-block;
 }
+.user .user-info span {
+  margin: 0;
+}
 
 .menu {
   margin: 0 -30px;
@@ -428,6 +438,8 @@ h1 a {
   margin-right: 10px;
   color: #6d6d6d;
   fill: #6d6d6d;
+  width: auto;
+  height: auto;
 }
 .menu li i + span {
   display: inline-block;
@@ -442,10 +454,10 @@ h1 a {
   font-size: 13px;
   line-height: 55px;
 }
-.menu .active {
+.menu .router-link-active {
   background: #1b1b1b;
 }
-.menu .active + .submenu {
+.menu .router-link-active + .submenu {
   display: block;
 }
 
@@ -571,6 +583,7 @@ h1 a {
   text-align: left;
   border-bottom: 1px solid #ddd;
   transition: 0.3s;
+  text-transform: capitalize;
 }
 .simple-box table th {
   padding-top: 0;
@@ -615,4 +628,4 @@ h1 a {
   float: right;
 }
 
-/*# sourceMappingURL=assets/css/main.css.map */
+/*# sourceMappingURL=file:///C:/wamp64/www/radikoVueDesktop/production/assets/css/main.css.map */

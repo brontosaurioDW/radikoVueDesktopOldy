@@ -33,6 +33,12 @@ h1 {
 		vertical-align: middle;
 		display: inline-block;
 	}
+
+	.user-info {
+		span {
+			margin: 0;
+		}
+	}
 }
 
 .menu {
@@ -52,6 +58,8 @@ h1 {
 			margin-right: 10px;
 			color: #6d6d6d;
 			fill: #6d6d6d;
+			width: auto;
+			height: auto;
 		}
 
 		i + span {
@@ -70,7 +78,7 @@ h1 {
 		line-height: 55px;
 	}
 
-	.active {
+	.router-link-active {
 		background: #1b1b1b;
 
 		& + .submenu {
