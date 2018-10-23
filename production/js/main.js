@@ -180,8 +180,8 @@ let pedidosTable = {
 					<th>N°</th>
 					<th>Cliente</th>					
 					<th class="text-center">Precio</th>
-					<th class="text-center">Dia</th>
-					<th class="text-center">Pago</th>
+					<th class="text-center">Día de entrega</th>
+					<th class="text-center">Estado</th>
 					<th></th>
 				</tr>
 		  </thead>
@@ -225,8 +225,8 @@ let pedidosTableRow = {
 			<td class="bold">#{{ pedido.id_pedido }}</td>
 			<td>{{ pedido.nombre}} {{ pedido.apellido}}</td>
 			<td class="text-center">$ {{ pedido.subtotal }}</td>
-			<td class="text-center">{{ pedido.fecha_pedido }}</td>
-			<td class="text-center">{{ pedido.tipo_pago }}</td>
+			<td class="text-center">{{ pedido.fecha_envio }}</td>
+			<td class="text-center">{{ pedido.estado }}</td>
 			<td class="text-right">
 				<a href="#">
 					<i class="icon icon-ch-right"></i>
