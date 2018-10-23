@@ -10,21 +10,21 @@ $postData = json_decode($buffer, true);
 //print_r($postData);
 
 $query = "INSERT INTO
-						productos 
-					SET
-						producto = :producto,
-						descripcion = :descripcion,
-						marca = :marca,
-						precio = :precio,
-						foto = NULL,
-						stock = :stock,
-						activo = '1',
-						estado = '1',
-						fecha_alta = NOW(),
-						fecha_baja = NULL,
-						CATEGORIAS_id_categoria = :categoria,
-						UNIDADES_DE_MEDIDA_id_unidad_medida = :unidad,
-						HUERTAS_id_huerta = '1'";
+		productos 
+	SET
+		producto = :producto,
+		descripcion = :descripcion,
+		marca = :marca,
+		precio = :precio,
+		foto = NULL,
+		stock = :stock,
+		activo = '1',
+		estado = '1',
+		fecha_alta = NOW(),
+		fecha_baja = NULL,
+		CATEGORIAS_id_categoria = :categoria,
+		UNIDADES_DE_MEDIDA_id_unidad_medida = :unidad,
+		HUERTAS_id_huerta = '1'";
 
 $stmt = $db->prepare($query);
 

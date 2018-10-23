@@ -7,26 +7,26 @@ $buffer = file_get_contents('php://input');
 
 $postData = json_decode($buffer, true);
 
-//print_r($postData);
+// print_r($postData);
 
 $query = "UPDATE 
-						productos 
-					SET
-						producto = :producto,
-						descripcion = :descripcion,
-						marca = :marca,
-						precio = :precio,
-						foto = :foto,
-						stock = :stock,
-						activo = :activo,
-						stock = :stock,
-						fecha_alta = NOW(),
-						fecha_baja = :fecha_baja,
-						CATEGORIAS_id_categoria = :CATEGORIAS_id_categoria,
-						UNIDADES_DE_MEDIDA_id_unidad_medida = :UNIDADES_DE_MEDIDA_id_unidad_medida,
-						HUERTAS_id_huerta = :HUERTAS_id_huerta
-					WHERE
-						id_producto = :id_producto";
+	productos 
+SET
+	producto = :producto,
+	descripcion = :descripcion,
+	marca = :marca,
+	precio = :precio,
+	foto = :foto,
+	stock = :stock,
+	activo = :activo,
+	stock = :stock,
+	fecha_alta = NOW(),
+	fecha_baja = :fecha_baja,
+	CATEGORIAS_id_categoria = :CATEGORIAS_id_categoria,
+	UNIDADES_DE_MEDIDA_id_unidad_medida = :UNIDADES_DE_MEDIDA_id_unidad_medida,
+	HUERTAS_id_huerta = :HUERTAS_id_huerta
+WHERE
+	id_producto = :id_producto";
 
 $stmt = $db->prepare($query);
 
@@ -38,9 +38,9 @@ $exito = $stmt->execute([
 	'foto' => 'tomate.jpg',
 	'stock' => $postData['stock'],
 	'activo' => $postData['activo'],
-	'fecha_baja' => 'DEFAULT',
-	'CATEGORIAS_id_categoria' => '2',
-	'UNIDADES_DE_MEDIDA_id_unidad_medida' => '5',
+	'fecha_baja' => NULL,
+	'CATEGORIAS_id_categoria' => $postData['id_categoria'],
+	'UNIDADES_DE_MEDIDA_id_unidad_medida' => $postData['id_unidad'],
 	'HUERTAS_id_huerta' => '1',
 	'id_producto' => $postData['id_producto']
 ]);

@@ -428,12 +428,6 @@ let ProductDetailPage = {
 								<td class="bold">{{ producto.stock }} {{ producto.unidad }}</td>
 							</tr>								
 						</table>
-
-						<div class="product-bottom">
-							<router-link :to="'/productos/edit/' + producto.id_producto" class="btn btn-terciary">Editar</router-link>
-							<a class="btn btn-secondary btn-sm" @click="eliminar(producto)">Eliminar</a>
-						</div>
-
 					</div>
 				</div>
 			</div>				
@@ -563,9 +557,9 @@ let ProductCreateFormPage = {
 						<div class="wrap-input half-input">
 							<label class="label-input" for="unidad">Unidad de medida <span class="red bold">*</span></label>
 							<div>
-						    <select v-model="producto.unidad" class="select" id="unidades">
+						    <select v-model="producto.unidad" class="select" id="unidades" name="unidad">
 								<option value="" disabled selected>Seleccioná una unidad de medida</option>
-						      <option v-for="unidad in unidades" :value="unidad.id_unidad_medida">{{unidad.unidad_de_medida}}</option>
+						      	<option v-for="unidad in unidades" :value="unidad.id_unidad_medida">{{unidad.unidad_de_medida}}</option>
 						    </select>
 							</div>
 						</div>							
@@ -678,14 +672,19 @@ let ProductEditFormPage = {
 							v-model="producto.precio">
 					</div>
 
-			  	<div class="wrap-input">
-				    <label class="label-input" for="categorias">Categoría <span class="red bold">*</span></label>
-				    <div>
-					    <select v-model="producto.categoria" class="select" id="categorias">
-					      <option v-for="categoria in categorias" :value="categoria.id_categoria">{{categoria.categoria}}</option>
-					    </select>
-				    </div>
-				  </div>
+				  	<div class="wrap-input">
+					    <label class="label-input" for="categorias">Categoría <span class="red bold">*</span></label>
+					    <div>
+						    <select v-model="producto.id_categoria" class="select" id="categorias">
+						    	<option 
+						    		v-for="categoria in categorias" 
+						    		:value="categoria.id_categoria"">
+						    		
+						    		{{categoria.categoria}}
+						    	</option>
+						    </select>
+					    </div>
+					</div>
 
 					<div class="wrap-input">
 						<label class="label-input">Marca <span class="red bold">*</span></label>
@@ -711,12 +710,9 @@ let ProductEditFormPage = {
 						<div class="wrap-input half-input">
 							<label class="label-input" for="unidad">Unidad de medida <span class="red bold">*</span></label>
 							<div>
-						    <select v-model="producto.unidad" class="select" id="unidades">
-						      <option 
-						      	v-for="unidad in unidades" 
-						      	:value="unidad.id_unidad_medida"
-						      	:selected="selected">{{unidad.unidad_de_medida}}</option>
-						    </select>
+							    <select v-model="producto.id_unidad" class="select" id="unidades">
+							      <option v-for="unidad in unidades" :value="unidad.id_unidad_medida">{{unidad.unidad_de_medida}}</option>
+							    </select>
 							</div>
 						</div>							
 					</div>
@@ -750,6 +746,7 @@ let ProductEditFormPage = {
 				stock: '',
 				categoria: '',
 				estado: '',
+				unidad: ''
 			},
 			categorias: [],
 			unidades: [],
@@ -760,7 +757,7 @@ let ProductEditFormPage = {
 
 	computed: {
 		selected() {
-			return 'selected';
+
 		}
 	},
 
