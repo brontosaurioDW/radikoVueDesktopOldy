@@ -13,7 +13,8 @@ $query = "SELECT
 						stock, 
 						activo, 
 						estado fecha_alta, 
-						unidad_de_medida AS unidad
+						unidad_de_medida AS unidad,
+						CATEGORIAS_id_categoria
 					FROM productos AS p
 					INNER JOIN unidades_de_medida as um
 					ON p.UNIDADES_DE_MEDIDA_id_unidad_medida = um.id_unidad_medida
