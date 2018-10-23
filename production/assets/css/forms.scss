@@ -121,3 +121,18 @@
 .same-as-selected {
     background-color: rgba(0, 0, 0, 0.1);
 }
+
+.dg-main-content {
+    max-width: 440px;
+    padding: 25px;
+    border-radius: 0;
+}
+
+.dg-content-body {
+    border: 0;
+}
+
+.dg-content {
+    font-size: 19px;
+    line-height: normal;
+}

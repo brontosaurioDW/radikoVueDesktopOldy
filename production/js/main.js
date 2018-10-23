@@ -269,6 +269,7 @@ let ProductsPage = {
 };
 Vue.component('ProductsPage', ProductsPage);
 
+
 // -----------------------------------
 // Listado de productos 
 // Component: products-table
@@ -288,7 +289,7 @@ let productsTable = {
 			</thead>
 			<tbody>
 		  	<products-table-row 
-		  		v-for="producto in productos"
+		  		v-for="(producto, index) in productos"
 		  		:producto="producto"
 		  		:key="producto.id_producto"
 	  		></products-table-row>						
@@ -331,7 +332,8 @@ let productsTableRow = {
 			<td>
 				<router-link :to="'/productos/' + producto.id_producto" class="btn btn-primary">Ver</router-link>
 				<router-link :to="'/productos/edit/' + producto.id_producto" class="btn btn-terciary">Editar</router-link>
-				<a class="btn btn-secondary btn-sm" @click="eliminar(producto)">Eliminar</a>		
+
+				<a class="btn btn-secondary btn-sm" v-confirm="{ok: dialog => eliminar(producto), message: '¿Seguro que querés eliminar este producto?'}">Eliminar</a>
 			</td>
 		</tr>
 	`,
@@ -370,7 +372,7 @@ let productsTableRow = {
 				if(data.status == 1) {
 					this.status = 1;
 					this.statusMsg = "producto eliminado";
-					router.push({ path: '/productos', message: this.statusMsg });
+					router.go({ path: '/productos' });
 				} else {
 					this.status = 0;
 					this.statusMsg = "Error - Algo salió mal"
@@ -838,7 +840,6 @@ let datosHuerta = {
 	}
 };
 Vue.component('datosHuerta', datosHuerta);
-
 
 const routes = [
 	{path: '/', component: HomePage},

@@ -340,6 +340,21 @@ h3 {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
+.dg-main-content {
+  max-width: 440px;
+  padding: 25px;
+  border-radius: 0;
+}
+
+.dg-content-body {
+  border: 0;
+}
+
+.dg-content {
+  font-size: 19px;
+  line-height: normal;
+}
+
 .btn {
   display: inline-block;
   line-height: 35px;
@@ -366,12 +381,14 @@ h3 {
   border-bottom: 3px solid #534699;
 }
 
-.btn-secondary {
+.btn-secondary,
+.dg-btn--ok {
   background: #dd614e;
   border-bottom: 3px solid #ab3b2a;
 }
 
-.btn-terciary {
+.btn-terciary,
+.dg-btn--cancel {
   background: #65bc9c;
   border-bottom: 3px solid #2f6d56;
 }
@@ -380,6 +397,23 @@ h3 {
   position: absolute;
   right: 30px;
   top: 25px;
+}
+
+.dg-btn--ok,
+.dg-btn--cancel {
+  border-radius: 0;
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+  color: #FFFFFF;
+  display: inline-block;
+  line-height: 35px;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  padding: 0 15px;
+  transition: 0.3s;
+  font-weight: normal;
 }
 
 .table-b tr td:last-child,
