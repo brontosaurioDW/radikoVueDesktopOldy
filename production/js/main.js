@@ -16,7 +16,9 @@ let HomePage = {
 					<div class="simple-box box-a">
 						<pedidos-table></pedidos-table>
 
-						<a href="#" class="basic">Ver todos</a>
+						<router-link to="/productos" class="basic">
+							Ver todos
+						</router-link>
 					</div>
 				</div>
 

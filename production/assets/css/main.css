@@ -155,7 +155,7 @@ a.basic {
 }
 
 h2 {
-  font-size: 23px;
+  font-size: 30px;
   color: #4b4b4b;
   text-transform: uppercase;
   font-family: "Gobold", sans-serif;
@@ -163,7 +163,7 @@ h2 {
 }
 
 h3 {
-  font-size: 20px;
+  font-size: 25px;
   color: #4b4b4b;
   text-transform: uppercase;
   font-family: "Gobold", sans-serif;
@@ -254,6 +254,7 @@ h3 {
   margin-top: 15px;
   padding: 0;
   box-shadow: none;
+  font-family: "Ebrima", sans-serif;
 }
 .form .half-input {
   width: 49%;
@@ -627,4 +628,4 @@ h1 a {
   float: right;
 }
 
-/*# sourceMappingURL=file:///C:/wamp64/www/radikoVueDesktop/flordeproduccion/assets/css/main.css.map */
+/*# sourceMappingURL=file:///C:/wamp64/www/radikoVueDesktop/production/assets/css/main.css.map */
