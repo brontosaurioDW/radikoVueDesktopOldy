@@ -255,6 +255,10 @@ let ProductsPage = {
 		<div class="simple-page">
 			<h2>Listado de productos de tu huerta</h2>
 			<p>Acá podés visualizar todos tus productos, editarlos o eliminarlos</p>
+
+			<div v-show="isSuccess" class="success">
+				<p>{{ statusMsg }}</p>
+			</div>
 			
 			<router-link to="/productos/create" class="btn btn-primary btn-lg cta-abs">
 				<i class="bold">+</i>
@@ -622,7 +626,8 @@ let ProductCreateFormPage = {
 			.then(data => {
 				if(data.status == 1) {
 					this.status = 1;
-					this.statusMsg = "producto guardado";
+					this.statusMsg = "Producto guardado con éxito!";
+					this.isSuccess = true;
 					router.push({ path: '/productos', message: this.statusMsg });
 				} else {
 					this.status = 0;

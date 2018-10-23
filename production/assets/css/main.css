@@ -226,6 +226,23 @@ h3 {
   margin-top: 25px;
 }
 
+/*  Error  */
+.error {
+  margin: 20px 0;
+  background: #ffd5d5;
+  padding: 15px;
+  border-bottom: 2px solid #c12626;
+  color: #c12626;
+}
+
+.exito {
+  margin: 20px 0;
+  background: #c3e0c4;
+  padding: 15px;
+  border-bottom: 2px solid #377d39;
+  color: #377d39;
+}
+
 .form {
   margin-top: 25px;
 }
@@ -661,4 +678,4 @@ h1 a {
   float: right;
 }
 
-/*# sourceMappingURL=file:///C:/wamp64/www/radikoVueDesktop/production/assets/css/main.css.map */
+/*# sourceMappingURL=css/main.css.map */
